@@ -53,17 +53,17 @@ class ContactService {
         const update = this.extractContactData(payload);
         const result = await this.Contact.findOneAndUpdate(
             filter,
-            { $set: update },
-            {returnDocument:"after"}
+            { $set: update }, //chỉ định rằng hàm nên cập nhật các trường hiện có (hoặc thêm các trường mới) với giá trị trong
+            { returnDocument: "after" } //chỉ định rằng hàm nên trả về đối tượng Contact sau khi đã được cập nhật.
         );
-        return result.value;
+        return result;
     }
 
     async delete(id) {
         const result = await this.Contact.findOneAndDelete({
             _id: ObjectId.isValid(id) ? new ObjectId(id): null,
         }); 
-        return result.value;
+        return result;
     }
 
     async deleteAll() {
@@ -71,7 +71,7 @@ class ContactService {
         return result.deletedCount;
     }
 
-    async findFavorite() {
+    async findAllFavorite() {
         return await this.find({ favorite: true});
     }
 }

@@ -62,7 +62,7 @@ exports.update = async ( req, res, next) =>
         return next(new ApiError(400, "Data to update can not be empty"));
     }
 
-    try{
+    try {
         const contactService = new ContactService(MongoDB.client);
         const document = await contactService.update(req.params.id, req.body);
         if (!document) {
@@ -72,7 +72,7 @@ exports.update = async ( req, res, next) =>
     } catch (error) {
         return next(
             new ApiError(500, 'Error updating contact with id=${req.params.id}' )
-        )
+        );
     }
 };
  
